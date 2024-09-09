@@ -30,6 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // " is KC_AT
 // @ is KC_DQUO
 
+const uint16_t PROGMEM commadot_semicolon[]    = {KC_COMM, KC_DOT, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(commadot_semicolon, KC_SCLN),
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_WORKMAN] = LAYOUT_split_3x6_3(
@@ -37,14 +43,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL, KC_LCTL, KC_A, LALT_T(KC_S), LCTL_T(KC_H), LGUI_T(KC_T), KC_G,
         KC_Y, RGUI_T(KC_N), RCTL_T(KC_E), LALT_T(KC_O), KC_I, KC_QUOT, KC_LSFT,
         KC_Z, KC_X, KC_M, KC_C, KC_V, KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH,
-        KC_ENT, KC_CAPS, LT(_NUMBERS, KC_TAB), KC_LSFT,
-        KC_SPC, LT(_SYMBOLS, KC_BSPC), KC_DEL),
+        KC_ENT, KC_CAPS, LT(_NUMBERS, KC_TAB), LSFT_T(KC_ENT),
+        RSFT_T(KC_SPC), LT(_SYMBOLS, KC_BSPC), KC_DEL),
 
     [_QWERTY] = LAYOUT_split_3x6_3(
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P,
         KC_BSPC, KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,
         KC_SCLN, KC_NO, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M,
-        KC_COMM, KC_DOT, KC_SLSH, KC_NO, KC_ESC, KC_SPC, MO(_NUMBERS), KC_ENT,
+        KC_COMM, KC_DOT, KC_SLSH, KC_NO, KC_RALT, KC_SPC, LT(_NUMBERS, KC_ESC), KC_ENT,
         TO(_WORKMAN), MO(_SYMBOLS)),
 
     [_NUMBERS] = LAYOUT_split_3x6_3(
@@ -53,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F9, KC_F10, KC_F11, KC_F12, KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5,
         KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_INS, KC_END, 
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME),
 
     [_SYMBOLS] = LAYOUT_split_3x6_3(
         KC_NO, KC_BSLS, KC_UNDS, KC_EXLM, KC_QUES, KC_PERC, KC_CIRC, KC_COLN,
@@ -64,16 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS),
 
     [_ADJUST] = LAYOUT_split_3x6_3(
-        KC_NO, KC_NO, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_WAKE, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,
-        TO(_QWERTY), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_SLEP, RGB_MOD,
-        RGB_HUD, RGB_SAD, RGB_VAD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_VOLD, KC_VOLU, KC_LGUI, KC_TRNS, KC_SPC, KC_ENT, KC_TRNS, KC_RALT),
+        QK_BOOT, KC_NO, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP,                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, 
+        RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, TO(_QWERTY),         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+        RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD, KC_VOLU,             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_TRNS, KC_TRNS, KC_TRNS,                                        KC_TRNS, KC_TRNS, KC_TRNS),
 
 };
 
 /* status variables */
-int current_wpm = 0;
 led_t led_usb_state;
 
 bool isCtrl = false;
@@ -138,45 +142,15 @@ static void print_status_narrow(void) {
 
   oled_set_cursor(0, 10);
   oled_write(led_usb_state.num_lock ? "num +" : "num -", false);
-
-  // wpm
-  oled_set_cursor(0, 14);
-  // NEW CODE
-  oled_write_P(PSTR("WPM: "), false);
-  oled_set_cursor(0, 15);
-  oled_write(get_u8_str(current_wpm, '0'), false);
 }
 
 static void print_right_status(void) {
 
-  oled_set_cursor(0, 4);
-  oled_write("Mods:", false);
 
-  oled_set_cursor(0, 6);
-  oled_write(led_usb_state.caps_lock ? "caps+" : "caps-", false);
-
-  oled_set_cursor(0, 7);
-  oled_write(isCtrl ? "ctrl+" : "ctrl-", false);
-
-  oled_set_cursor(0, 8);
-  oled_write(isAlt ? "alt +" : "alt -", false);
-
-  oled_set_cursor(0, 9);
-  oled_write(isShft ? "shft+" : "shft-", false);
-
-  oled_set_cursor(0, 10);
-  oled_write(led_usb_state.num_lock ? "num +" : "num -", false);
-
-  // wpm
-  oled_set_cursor(0, 14);
-  oled_write_P(PSTR("WPM: "), false);
-  oled_set_cursor(0, 15);
-  oled_write(get_u8_str(current_wpm, '0'), false);
 }
 
 bool oled_task_user(void) {
   led_usb_state = host_keyboard_led_state();
-  current_wpm = get_current_wpm();
 
   if (is_keyboard_master()) {
     print_status_narrow();
