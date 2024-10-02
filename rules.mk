@@ -1,8 +1,9 @@
-WPM_ENABLE = no
-OLED_DRIVER_ENABLE = yes
-NKRO_ENABLE = yes   
-RGBLIGHT_SUPPORTED = yes
-RGB_MATRIX_SUPPORTED = yes
+NKRO_ENABLE = yes
 TRI_LAYER_ENABLE = yes
-LTO_ENABLE = yes
-COMBO_ENABLE = yes
+MOUSEKEY_ENABLE = no     # Mouse keys
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = yes    # Enable WS2812 RGB underlight.
+VIA_ENABLE      = no    # Enable VIA
+OLED_ENABLE     = yes
+LTO_ENABLE      = yes
+WPM_ENABLE = yes
