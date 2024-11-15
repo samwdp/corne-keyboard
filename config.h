@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_WPM_ENABLE // Enable WPM across split keyboards (+268).
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define NO_ACTION_ONESHOT
+#define TAPPING_TERM 150
+#define TAPPING_TERM_PER_KEY
 // #define SPLIT_OLED_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE

@@ -1,4 +1,6 @@
 NKRO_ENABLE = yes
+# COMBO_ENABLE = yes
+TAP_DANCE_ENABLE = yes
 TRI_LAYER_ENABLE = yes
 MOUSEKEY_ENABLE = no     # Mouse keys
 RGBLIGHT_ENABLE = no
