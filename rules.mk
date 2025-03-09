@@ -1,4 +1,5 @@
-NKRO_ENABLE = yes
+SPLIT_KEYBOARD = yes
+# NKRO_ENABLE = no
 # COMBO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 TRI_LAYER_ENABLE = yes
@@ -7,5 +8,6 @@ RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes    # Enable WS2812 RGB underlight.
 VIA_ENABLE      = no    # Enable VIA
 OLED_ENABLE     = yes
-LTO_ENABLE      = yes
+# LTO_ENABLE      = no
 WPM_ENABLE = yes
+NO_USB_STARTUP_CHECK = yes
