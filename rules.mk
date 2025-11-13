@@ -9,5 +9,5 @@ RGB_MATRIX_ENABLE = yes    # Enable WS2812 RGB underlight.
 VIA_ENABLE      = no    # Enable VIA
 OLED_ENABLE     = yes
 # LTO_ENABLE      = no
-WPM_ENABLE = yes
+WPM_ENABLE = no
 NO_USB_STARTUP_CHECK = yes

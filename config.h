@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 150
 #define TAPPING_TERM_PER_KEY
-// #undef SPLIT_USB_DETECT
+#undef SPLIT_USB_DETECT
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
