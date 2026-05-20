@@ -1,4 +1,3 @@
-
 /*
 This is the c configuration file for the keymap
 

@@ -1,0 +1,14 @@
+-IC:/Users/sam/qmk-keyboard
+-IC:/Users/sam/qmk-keyboard/tmk_core/common
+-IC:/Users/sam/qmk-keyboard/quantum
+-IC:/Users/sam/qmk-keyboard/quantum/keymap_extras
+-IC:/Users/sam/qmk-keyboard/quantum/audio
+-IC:/Users/sam/qmk-keyboard/quantum/backlight
+-IC:/Users/sam/qmk-keyboard/quantum/rgblight
+-IC:/Users/sam/qmk-keyboard/drivers
+-I.
+-D__AVR__
+-DQMK_KEYBOARD
+-Os
+-Wall
+-std=gnu11
